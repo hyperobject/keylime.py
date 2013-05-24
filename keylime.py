@@ -21,12 +21,6 @@ usedCode = None
 print 'Authentication code is ' + code
 mcserver = mc.Server()
 mcserver.start()
-"""if open('status.txt', 'r+').read() == 'offline':
-	emailserver = smtplib.SMTP('smtp.gmail.com:587')
-	emailserver.starttls()
-	emailserver.login(username,password)
-	online(emailserver)
-	open('status.txt', 'w+').write('online')"""
 def main():
 	global code
 	global ipaddress
@@ -92,11 +86,12 @@ def cellcheck():
 				code = generate_id()
 				sendemail(username, password, 'smtp.gmail.com:587', servername + ' ran command ' + cellmsg[7:], 'RE: ' + latest_email['Subject'], latest_email['From'])
 				sendemail(username, password, 'smtp.gmail.com:587', 'The new code is ' + code + '.', 'RE: ' + latest_email['Subject'], latest_email['From'])
+		time.sleep(60)
 mainloop = multiprocessing.Process(target=main, args=())
-emailcheck = multiprocessing.Process(target=cellcheck, args=())
-#codegen = multiprocessing.Process(target=codegen, args=())
+cellcheck = multiprocessing.Process(target=cellcheck, args=())
+emailcheck = multiprocessing.Process(target=commandcheck, args=())
 mainloop.start()
-#codegen.start()
+cellcheck.start()
 emailcheck.start()
 
 
