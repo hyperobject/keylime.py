@@ -11,14 +11,14 @@ import os
 import filecmp
 import multiprocessing
 from KeyLimeDefs import *
-username = raw_input('email username? ')
-password = getpass()
-servername = raw_input('server\'s name? ')
-ipaddress = raw_input('your external IP address? ')
+username = raw_input('Email username? ')
+password = getpass('Email password? (hidden) ')
+servername = raw_input('Server\'s name? ')
+ipaddress = raw_input('Your external IP address? ')
 ospath = os.path.expanduser('~')
 code = generate_id()
 usedCode = None
-print code
+print 'Authentication code is ' + code
 mcserver = mc.Server()
 mcserver.start()
 """if open('status.txt', 'r+').read() == 'offline':
